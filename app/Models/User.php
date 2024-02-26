@@ -18,9 +18,10 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
-        'name',
+        'first_name', 'last_name',
         'email',
         'password',
+        'is_admin', 'gender', 'phone', 'address',
     ];
 
     /**
@@ -42,4 +43,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function scopeUser($query) {
+        return $query->where('is_admin', false);
+    }
+
+    public function cart() {
+        return $this->hasMany(UserCart::class);
+    }
 }
